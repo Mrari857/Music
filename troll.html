@@ -7,8 +7,8 @@
   body {
     margin: 0;
     padding: 10px;
-    background: #1a1a1a;   /* SOLID background */
-    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #111, #222);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     color: white;
   }
 
@@ -16,31 +16,53 @@
     width: 280px;
   }
 
+  #title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    opacity: 0.9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   button {
-    background: #333;
+    background: #2d2d2d;
     color: white;
     border: none;
     padding: 6px 10px;
     cursor: pointer;
-    margin-right: 6px;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    transition: background 0.2s;
   }
 
   button:hover {
-    background: #555;
+    background: #444;
   }
 
   input[type="range"] {
     width: 100%;
-    margin-top: 8px;
+    margin-top: 6px;
+    accent-color: #1db954; /* Spotify green vibe */
   }
 </style>
 </head>
 <body>
 
 <div id="player">
-  <button id="playPause">Play</button>
-  <button id="stop">Stop</button>
+  <div id="title">Hwungii, DJ VGK1 — VOCE NA MIRA</div>
+
+  <div id="controls">
+    <button id="playPause">▶</button>
+    <button id="stop">⏹</button>
+  </div>
 
   <input type="range" id="progress" value="0" min="0" step="1">
 </div>
@@ -58,17 +80,17 @@
   playPause.onclick = () => {
     if (audio.paused) {
       audio.play();
-      playPause.textContent = "Pause";
+      playPause.textContent = "⏸";
     } else {
       audio.pause();
-      playPause.textContent = "Play";
+      playPause.textContent = "▶";
     }
   };
 
   stopBtn.onclick = () => {
     audio.pause();
     audio.currentTime = 0;
-    playPause.textContent = "Play";
+    playPause.textContent = "▶";
   };
 
   audio.addEventListener("loadedmetadata", () => {
