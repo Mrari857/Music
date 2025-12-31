@@ -2,69 +2,70 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Music Player</title>
+<title>Mini Player</title>
 <style>
   body {
     margin: 0;
-    padding: 10px;
-    background: linear-gradient(135deg, #111, #222);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 150px;
+    height: 80px;
+    background: #141414;
+    font-family: system-ui, sans-serif;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   #player {
-    width: 280px;
+    width: 140px;
+    height: 70px;
+    display: grid;
+    grid-template-columns: 28px 1fr 18px;
+    grid-template-rows: auto auto;
+    gap: 4px;
   }
 
   #title {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    opacity: 0.9;
+    grid-column: 1 / 4;
+    font-size: 9px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  #controls {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    opacity: 0.8;
   }
 
   button {
-    background: #2d2d2d;
-    color: white;
+    background: #2a2a2a;
     border: none;
-    padding: 6px 10px;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 6px;
-    font-size: 12px;
-    transition: background 0.2s;
   }
 
-  button:hover {
-    background: #444;
+  #progress {
+    grid-column: 2 / 3;
+    accent-color: #1db954;
+    height: 6px;
   }
 
-  input[type="range"] {
-    width: 100%;
-    margin-top: 6px;
-    accent-color: #1db954; /* Spotify green vibe */
+  #volume {
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 18px;
+    height: 36px;
+    accent-color: #1db954;
   }
 </style>
 </head>
 <body>
 
 <div id="player">
-  <div id="title">Hwungii, DJ VGK1 — VOCE NA MIRA</div>
+  <div id="title">Hwungii, DJ VGK1</div>
 
-  <div id="controls">
-    <button id="playPause">▶</button>
-    <button id="stop">⏹</button>
-  </div>
-
+  <button id="playPause">▶</button>
   <input type="range" id="progress" value="0" min="0" step="1">
+  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
 </div>
 
 <audio id="audio">
@@ -74,8 +75,10 @@
 <script>
   const audio = document.getElementById("audio");
   const playPause = document.getElementById("playPause");
-  const stopBtn = document.getElementById("stop");
   const progress = document.getElementById("progress");
+  const volume = document.getElementById("volume");
+
+  audio.volume = volume.value;
 
   playPause.onclick = () => {
     if (audio.paused) {
@@ -87,10 +90,8 @@
     }
   };
 
-  stopBtn.onclick = () => {
-    audio.pause();
-    audio.currentTime = 0;
-    playPause.textContent = "▶";
+  volume.oninput = () => {
+    audio.volume = volume.value;
   };
 
   audio.addEventListener("loadedmetadata", () => {
@@ -108,3 +109,4 @@
 
 </body>
 </html>
+
