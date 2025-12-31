@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Mini Player</title>
+<title>Mini Music Player</title>
 <style>
   body {
     margin: 0;
-    width: 150px;
-    height: 80px;
-    background: #141414;
+    width: 220px;
+    height: 100px;
+    background: #121212;
     font-family: system-ui, sans-serif;
     color: white;
     display: flex;
@@ -17,21 +17,22 @@
   }
 
   #player {
-    width: 140px;
-    height: 70px;
-    display: grid;
-    grid-template-columns: 28px 1fr 18px;
-    grid-template-rows: auto auto;
-    gap: 4px;
+    width: 210px;
   }
 
   #title {
-    grid-column: 1 / 4;
-    font-size: 9px;
+    font-size: 14px;           /* BIGGER TITLE */
+    font-weight: 600;
+    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    opacity: 0.8;
+  }
+
+  #controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
   button {
@@ -39,33 +40,48 @@
     border: none;
     color: white;
     font-size: 14px;
-    border-radius: 4px;
+    padding: 6px 8px;
+    border-radius: 6px;
     cursor: pointer;
   }
 
+  button:hover {
+    background: #3a3a3a;
+  }
+
   #progress {
-    grid-column: 2 / 3;
+    width: 100%;
+    margin-top: 6px;
     accent-color: #1db954;
-    height: 6px;
   }
 
   #volume {
-    writing-mode: bt-lr;
-    -webkit-appearance: slider-vertical;
-    width: 18px;
-    height: 36px;
+    width: 70px;               /* YouTube-style horizontal */
     accent-color: #1db954;
+  }
+
+  #volWrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 </style>
 </head>
 <body>
 
 <div id="player">
-  <div id="title">Hwungii, DJ VGK1</div>
+  <div id="title">Hwungii, DJ VGK1 — VOCE NA MIRA</div>
 
-  <button id="playPause">▶</button>
+  <div id="controls">
+    <button id="playPause">▶</button>
+
+    <div id="volWrap">
+      <span>🔊</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
+    </div>
+  </div>
+
   <input type="range" id="progress" value="0" min="0" step="1">
-  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
 </div>
 
 <audio id="audio">
