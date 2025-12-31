@@ -2,28 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Mini Music Player</title>
+<title>Neon Player</title>
 <style>
   body {
     margin: 0;
-    width: 220px;
-    height: 100px;
-    background: #121212;
+    width: 240px;
+    height: 110px;
+    background: radial-gradient(circle at top, #0a0a0a, #000);
     font-family: system-ui, sans-serif;
-    color: white;
+    color: #eaffff;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   #player {
-    width: 210px;
+    width: 225px;
+    padding: 8px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.6);
+    box-shadow:
+      0 0 10px #00ffcc,
+      0 0 20px rgba(0,255,204,0.4),
+      inset 0 0 10px rgba(0,255,204,0.15);
   }
 
   #title {
-    font-size: 14px;           /* BIGGER TITLE */
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     margin-bottom: 6px;
+    text-shadow:
+      0 0 5px #00ffcc,
+      0 0 10px #00ffcc;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -36,34 +46,38 @@
   }
 
   button {
-    background: #2a2a2a;
-    border: none;
-    color: white;
+    background: black;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
     font-size: 14px;
     padding: 6px 8px;
     border-radius: 6px;
     cursor: pointer;
+    box-shadow: 0 0 6px #00ffcc;
   }
 
   button:hover {
-    background: #3a3a3a;
-  }
-
-  #progress {
-    width: 100%;
-    margin-top: 6px;
-    accent-color: #1db954;
-  }
-
-  #volume {
-    width: 70px;               /* YouTube-style horizontal */
-    accent-color: #1db954;
+    background: #00ffcc;
+    color: black;
   }
 
   #volWrap {
     display: flex;
     align-items: center;
     gap: 4px;
+    color: #c77dff;
+    text-shadow: 0 0 6px #c77dff;
+  }
+
+  #volume {
+    width: 70px;
+    accent-color: #c77dff;
+  }
+
+  #progress {
+    width: 100%;
+    margin-top: 6px;
+    accent-color: #00ffcc;
   }
 </style>
 </head>
@@ -76,7 +90,7 @@
     <button id="playPause">▶</button>
 
     <div id="volWrap">
-      <span>🔊</span>
+      🔊
       <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
     </div>
   </div>
@@ -106,9 +120,7 @@
     }
   };
 
-  volume.oninput = () => {
-    audio.volume = volume.value;
-  };
+  volume.oninput = () => audio.volume = volume.value;
 
   audio.addEventListener("loadedmetadata", () => {
     progress.max = Math.floor(audio.duration);
